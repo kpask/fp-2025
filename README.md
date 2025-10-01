@@ -15,19 +15,19 @@
 <command> ::= "dump" <dumpable>
             | "create playlist" <playlistName>
             | "add song" <title> "by" <artist> <duration> "to playlist" <playlistName>
-            | "add playlist" <nestedPlaylistName> "to playlist" <parentPlaylistName>
+            | "add playlist" <playlistName> "to playlist" <playlistName>
             | "show playlist" <playlistName>
             | "total duration of playlist" <playlistName>
             | "play playlist" <playlistName>
 
 <playlistName> ::= <string>
-<nestedPlaylistName> ::= <playlistName>
-<parentPlaylistName> ::= <playlistName>
 
 <title> ::= <string>
 <artist> ::= <string>
-<duration> ::= <integer>
+<duration> ::= <Integer>
 
+<Integer> ::= [0-9]
+<string> ::= "a"
 <dumpable> ::= "examples"
 
 ```

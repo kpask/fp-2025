@@ -31,14 +31,13 @@ example1 :: Command
 example1 = AddSong "Yesterday" "The Beatles" 125 "MyPlaylist"
 
 example2 :: Command
-example2 = AddPlaylist "Favorites" "MyPlaylist"  -- nested inside parent
+example2 = AddPlaylist "Favorites" "MyPlaylist"
 
 example3 :: Command
 example3 = TotalDuration "Favorites"
 
 example4 :: Command
-example4 = Dump Examples  -- self-referential, required for Lab 1
+example4 = Dump Examples
 
--- List of examples (used by tests)
 examples :: [Command]
 examples = [example0, example1, example2, example3, example4]
