@@ -12,15 +12,18 @@
 
 ### BNF
 ```
-<command> ::= "dump" <dumpable>
+<Command> ::= "dump" <dumpable>
             | "create playlist" <playlistName>
-            | "add song" <title> "by" <artist> <duration> "to playlist" <playlistName>
+            | "add song" <song> "to playlist" <playlistName>
             | "add playlist" <playlistName> "to playlist" <playlistName>
             | "show playlist" <playlistName>
             | "total duration of playlist" <playlistName>
             | "play playlist" <playlistName>
 
 <playlistName> ::= <string>
+
+<song> ::= <title> "by" <artist> <duration>
+<playlist> ::= <song> | <song> <playlist>
 
 <title> ::= <string>
 <artist> ::= <string>
@@ -29,5 +32,4 @@
 <Integer> ::= [0-9]
 <string> ::= "a"
 <dumpable> ::= "examples"
-
 ```
