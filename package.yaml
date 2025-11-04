@@ -38,6 +38,7 @@ library:
   dependencies:
     - random
     - stm
+    - transformers
     - async
   when:
   - condition: false
