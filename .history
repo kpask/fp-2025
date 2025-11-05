@@ -1,3 +1,25 @@
+!quit
+:quit
+:q
+\q
+total duration of playlist "favorites"
+total duration o playlist "favorites"
+dump examples
+!quit
+!q
+:q
+quit
+stack quit
+:quit
+dump examples
+add song "yesterday" by "the beatles" 125 to playlist "myplaylist"
+:quit
+\q
+:q
+add song "yesterday" by "the beatles" 125 to playlist "myplaylist"
+create playlist "Myplaylist"
+create playlist "Playlist"
+dump examples
 fsdf
 fsdf
 dump examples
