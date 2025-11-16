@@ -1,3 +1,4 @@
+-- | Notes taken by Emilija Rimšelytė
 module Lessons.Lesson07 where
 
 -- | List comprehension: pairing numbers with letters.

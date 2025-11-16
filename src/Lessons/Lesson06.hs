@@ -1,3 +1,4 @@
+-- | Notes taken by Emilija Rimšelytė
 module Lessons.Lesson06 where
 
 import Control.Concurrent (newChan, threadDelay, forkIO,readChan, writeChan, Chan)
