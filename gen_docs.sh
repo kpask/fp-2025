@@ -2,8 +2,8 @@
 
 stack exec -- haddock \
     --hyperlinked-source \
+    --quickjump \
     --html \
-    --source-base=URL \
     src/Lessons/Lesson01.hs \
     src/Lessons/Lesson02.hs \
     src/Lessons/Lesson03.hs \
