@@ -39,6 +39,7 @@ library:
     - QuickCheck
     - random
     - stm
+    - strict
     - transformers
     - async
   when:

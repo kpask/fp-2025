@@ -7,6 +7,9 @@ import qualified Lib1
 import Control.Concurrent.STM.TVar(TVar)
 import Control.Concurrent (Chan, readChan)
 
+import System.IO.Strict(readFile)
+import System.IO(writeFile)
+
 newtype Parser a = Parser {
     runParser :: String -> Either String (a, String)
 }
