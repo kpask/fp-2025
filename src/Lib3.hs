@@ -7,6 +7,9 @@ import qualified Lib1
 import Control.Concurrent.STM.TVar(TVar)
 import Control.Concurrent (Chan, readChan)
 
+import System.IO.Strict(readFile)
+import System.IO(writeFile)
+
 newtype Parser a = Parser {
     runParser :: String -> Either String (a, String)
 }
@@ -18,6 +21,7 @@ newtype Parser a = Parser {
 -- 2) It must NOT implement Monad, no do-notations
 -- 3) pmap with andN become <$> <*>
 -- 4) orElse becomes <|>
+-- 5) many and many1 become many and some
 -- Yes, it will be mostly a copy-paste but an easy one
 -- if Lib2 was implemented correctly.
 parseCommand :: Parser Lib1.Command
@@ -47,6 +51,8 @@ data StorageOp = Save String (Chan ()) | Load (Chan String)
 -- from chan, do the IO operations needed and respond
 -- to a channel provided in a request. It must run forever.
 -- Modify as needed.
+-- You might want to use readFile from `strict` library
+-- if you get "resource locked" exceptions under Windows.
 storageOpLoop :: Chan StorageOp -> IO ()
 storageOpLoop c = do
   _ <- readChan c
