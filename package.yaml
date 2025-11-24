@@ -87,3 +87,5 @@ tests:
     - fp2025
     - tasty
     - tasty-hunit
+    - tasty-quickcheck
+    - transformers

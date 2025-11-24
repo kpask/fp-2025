@@ -38,6 +38,7 @@ library
       Lib1
       Lib2
       Lib3
+      Lib4
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -114,4 +115,6 @@ test-suite fp2024-test
     , fp2025
     , tasty
     , tasty-hunit
+    , tasty-quickcheck
+    , transformers
   default-language: Haskell2010
