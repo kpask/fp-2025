@@ -37,6 +37,7 @@ library:
   source-dirs: src
   dependencies:
     - deepseq
+    - free
     - QuickCheck
     - random
     - stm

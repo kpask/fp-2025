@@ -35,6 +35,7 @@ library
       Lessons.Lesson09
       Lessons.Lesson10
       Lessons.Lesson11
+      Lessons.Lesson12
       Lib1
       Lib2
       Lib3
@@ -47,6 +48,7 @@ library
     , async
     , base >=4.7 && <5
     , deepseq
+    , free
     , random
     , stm
     , strict
