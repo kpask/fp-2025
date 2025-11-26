@@ -38,6 +38,7 @@ library:
   source-dirs: src
   dependencies:
     - deepseq
+    - free
     - QuickCheck
     - random
     - stm
@@ -88,3 +89,5 @@ tests:
     - fp2025
     - tasty
     - tasty-hunit
+    - tasty-quickcheck
+    - transformers
