@@ -1,0 +1,3 @@
+create playlist "My Favorites"
+add song "Bohemian Rhapsody" by "Queen" 354 to playlist "My Favorites"
+add song "Gangnam style" by "PSY" 300 to playlist "My Favorites"
