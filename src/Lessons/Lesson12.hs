@@ -1,6 +1,6 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE DeriveFunctor #-}
-module Lessons.Lesson12 () where
+module Lessons.Lesson12 (MyDomain, MyDomainAlgebra(..), calculte, store, restore) where
 
 import Control.Monad.Free (Free (..))
 import Control.Monad.Trans.State.Strict (State, get, put, runState)
@@ -71,6 +71,6 @@ runInState (Free step) = do
 
 
 -- >>> runState (runInState myTwoPrograms) 0
--- ((27,27),42)
+-- ((27,69),42)
 myTwoPrograms :: MyDomain (Integer, Integer)
 myTwoPrograms = (,) <$> myProgram <*> myProgram
