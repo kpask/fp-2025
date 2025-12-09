@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -Wno-missing-export-lists #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Redundant lambda" #-}
-
+-- | Notes taken by Andrius Gasiukevičius
 module Lessons.Lesson05 where
 
 import Data.Foldable
