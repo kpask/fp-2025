@@ -131,7 +131,7 @@ pmap f p = \input ->
     Left e -> Left e
     Right (v, r) -> Right (f v, r)
 
--- | Here we define an abstract data type 'Food'. Clearly, the most important foods are Pizza and Sushi; the rest can be described by a Custom String.
+-- | Here we define an algebraic data type 'Food'. Clearly, the most important foods are Pizza and Sushi; the rest can be described by a Custom String.
 data Food = Pizza | Sushi | Custom String deriving Show
 
 -- | A semigroup is a set equipped with a binary operation satisfying the closure and associativity properties.
