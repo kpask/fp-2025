@@ -20,15 +20,20 @@ import Test.QuickCheck.Gen
 import Data.Char
 
 -- | Basic types for the parser.
--- 'Parser a' is an ExceptT over State:
--- - 'State Input' carries the remaining input string.
--- - 'ExceptT ErrorMsg' allows early failure with an error message.
+--
+-- @Parser a@ is an `ExceptT` over `State`.
+--
+-- @State Input@ carries the remaining input string.
+--
+-- @ExceptT ErrorMsg@ allows failure with an error message.
+
 type ErrorMsg = String
 type Input = String
 type Parser a = ExceptT ErrorMsg (State Input) a
 
 -- | Parse a single alphabetic character.
--- Consumes one character from the input state or fails with a message.
+--
+-- Consumes one character from the input state or fails with an error message.
 --
 -- >>> parse parseLetter "a1"
 -- (Right 'a',"1")
@@ -37,15 +42,15 @@ type Parser a = ExceptT ErrorMsg (State Input) a
 -- >>> parse parseLetter ""
 -- (Left "A letter is expected but got empty input","")
 parseLetter :: Parser Char
-parseLetter = do 
-    input <- lift get
-    case input of
-        [] -> throwE "A letter is expected but got empty input"
-        (h:t) -> if isAlpha h
-            then do
-                lift (put t)
-                return h
-            else throwE $ "A letter is expected, but got " ++ [h]
+parseLetter = do
+	input <- lift get
+	case input of
+		[] -> throwE "A letter is expected but got empty input"
+		(h:t) -> if isAlpha h
+		then do
+			lift (put t)
+			return h
+		else throwE $ "A letter is expected, but got " ++ [h]
 
 -- | Parse two letters using 'do' notation.
 --
@@ -55,11 +60,11 @@ parseLetter = do
 -- (Left "A letter is expected, but got 5","5")
 parseTwoLetters :: Parser String
 parseTwoLetters = do
-    a <- parseLetter
-    b <- parseLetter
-    pure [a, b]
+	a <- parseLetter
+	b <- parseLetter
+	pure [a, b]
 
--- | Same as 'parseTwoLetters', but using Applicative style.
+-- | Same as 'parseTwoLetters', but using applicative style.
 --
 -- >>> parse parseTwoLetters' "ab"
 -- (Right "ab","")
@@ -87,7 +92,8 @@ parse :: Parser a -> Input -> (Either ErrorMsg a, Input)
 parse p = runState (runExceptT p)
 
 -- | A more complex monad stack: IO + State + Except.
--- 'Weird a' fails with an Int, keeps a String state, and can do IO.
+--
+-- @Weird a@ fails with an Int, keeps a String state, and can do IO.
 type Weird a = ExceptT Int (StateT String IO) a
 
 -- | Version using nested 'lift' calls.
@@ -97,11 +103,11 @@ type Weird a = ExceptT Int (StateT String IO) a
 -- runStateT (runExceptT weird) "init" :: IO (Either Int Double, String)
 weird :: Weird Double
 weird = do
-    lift $ lift $ putStrLn "Hello?"
-    answer <- lift $ lift $ getLine
-    lift $ put answer
-    return 3.14
-
+	lift $ lift $ putStrLn "Hello?"
+	answer <- lift $ lift $ getLine
+	lift $ put answer
+	return 3.14
+--
 -- >>> :t weird
 -- weird :: Weird Double
 -- >>> :t runExceptT weird
@@ -112,18 +118,17 @@ weird = do
 -- | Same behavior, but with 'liftIO' for cleaner IO lifting.
 weird' :: Weird Double
 weird' = do
-    liftIO $ putStrLn "Hello?"
-    answer <- liftIO $ getLine
-    lift $ put answer
-    return 3.14
+	liftIO $ putStrLn "Hello?"
+	answer <- liftIO $ getLine
+	lift $ put answer
+	return 3.14
 
 -- | A simple sum type used with QuickCheck.
 data SomeData = Foo String | Bar Integer deriving Show
 
--- | QuickCheck generator instance.
--- Produces either 'Foo <random string>' or 'Bar <random integer>'.
+-- | Arbitrary instance for SomeData.
 --
--- >>> generate arbitrary :: IO SomeData
+-- Generates Foo with a random string or Bar with a random integer.
 instance Arbitrary SomeData where
-    arbitrary :: Gen SomeData
-    arbitrary = oneof [fmap Foo arbitrary, fmap Bar arbitrary]
+	arbitrary :: Gen SomeData
+	arbitrary = oneof [fmap Foo arbitrary, fmap Bar arbitrary]

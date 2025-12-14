@@ -1,10 +1,11 @@
 -- | Notes taken by Deimantė Davidavičiūtė
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE DeriveFunctor #-}
-module Lessons.Lesson12 (MyDomain, MyDomainAlgebra(..), calculte, store, restore) where
+module Lessons.Lesson12 (MyDomain, MyDomainAlgebra(..), calculte, store, restore, myProgram, runInIO, runInState, runState) where
 
 -- | Free monad over a small domain-specific algebra.
--- 'Free f a' lets us build programs where effects are described
+--
+-- @Free f a@ lets us build programs where effects are described
 -- by the functor 'f' and interpreted later.
 import Control.Monad.Free (Free (..))
 import Control.Monad.Trans.State.Strict (State, get, put, runState)
@@ -12,10 +13,12 @@ import Control.Monad.Trans.State.Strict (State, get, put, runState)
 import Lessons.Lesson11 (Expr(..), eval)
 
 -- | The algebra of our domain:
--- - 'Calculate Expr (Integer -> next)': evaluate an arithmetic expression,
---    then pass the resulting Integer to the continuation.
--- - 'Store Integer (() -> next)': store a number and continue.
--- - 'Restore (Integer -> next)': fetch the last stored number and continue.
+--
+-- 'Calculate Expr (Integer -> next)': evaluate an arithmetic expression, then pass the resulting Integer to the continuation.
+--
+-- 'Store Integer (() -> next)': store a number and continue.
+--
+-- 'Restore (Integer -> next)': fetch the last stored number and continue.
 data MyDomainAlgebra next = Calculate Expr (Integer -> next)
                           | Store Integer (() -> next)
                           | Restore (Integer -> next)
@@ -48,12 +51,11 @@ restore :: MyDomain Integer
 restore = Free (Restore Pure)
 
 -- | A sample program composed of our domain actions.
--- It:
--- 1) Calculates an expression, yielding 'r'.
--- 2) Restores a value 'v0'.
--- 3) Stores 'r' and then stores 42.
--- 4) Restores 'v1'.
--- 5) Returns the sum.
+--
+-- Calculates an expression and binds it to 'r'
+-- Restores previously stored value 'v0'.
+-- Stores 'r' and then stores 42.
+-- Restores 'v1' and returns the sum.
 myProgram :: MyDomain Integer
 myProgram = do
   r <- calculte $ Neg (Add (Lit 5) (Add (Lit 4) (Lit 6)))
