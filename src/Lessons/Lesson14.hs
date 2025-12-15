@@ -15,7 +15,7 @@
 -- - Call by Name: No reduction inside abstractions (Haskell)
 
 {-# LANGUAGE InstanceSigs #-}
-module Lessons.Lesson14 () where
+module Lessons.Lesson14 where
 import qualified Data.List as L
 
 
@@ -98,12 +98,16 @@ instance Show ITerm where
 -- stacking variable names as we enter abstractions (n : stack).
 -- findInd checks stack first (bound vars), then context (free vars).
 -- For context variables: take context position + length of stack to renumber properly.
+
+-- @
 -- >>> deBruijnIndices [] tru
 -- (/|.(/|.1))
 -- >>> deBruijnIndices [] fls
 -- (/|.(/|.0))
 -- >>> deBruijnIndices ["a", "b", "c", "d"] $ Abs "s" (Abs "z" (Var "d"))
 -- (/|.(/|.5))
+-- @
+
 deBruijnIndices :: [String] -> Term -> ITerm
 deBruijnIndices ctx t = walk [] t
   where
@@ -151,6 +155,8 @@ isVal _ = False
 -- | Single-step evaluator (call-by-name, like Haskell).
 -- From Pierce's "Types and Programming Languages".
 -- Each eval call returns a shorter expression.
+
+-- @
 -- >>> eval $ deBruijnIndices [] expr
 -- ((/|.(((/|.(/|.1)) 0) (/|.(/|.0)))) (/|.(/|.1)))
 -- >>> eval $ eval $ deBruijnIndices [] expr
@@ -159,6 +165,8 @@ isVal _ = False
 -- ((/|.(/|.(/|.1))) (/|.(/|.0)))
 -- >>> eval $ eval $ eval $ eval $ deBruijnIndices [] expr
 -- (/|.(/|.1))
+-- @
+
 eval :: ITerm -> ITerm
 eval (IApp (IAbs t') v2) | isVal v2 = termSubstTop v2 t'
 eval (IApp v1 t2) | isVal v1 = IApp v1 (eval t2)

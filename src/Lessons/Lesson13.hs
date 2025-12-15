@@ -10,7 +10,7 @@
 
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE DeriveFunctor #-}
-module Lessons.Lesson13 () where
+module Lessons.Lesson13 where
 
 import Control.Monad.Free (Free (..))
 import Control.Monad.Trans.State.Strict (State, get, put, runState)
