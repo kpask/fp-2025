@@ -41,6 +41,10 @@ library
       Lib2
       Lib3
       Lib4
+  other-modules:
+      Paths_fp2025
+  autogen-modules:
+      Paths_fp2025
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -48,66 +52,66 @@ library
       QuickCheck
     , async
     , base >=4.7 && <5
+    , bytestring
     , containers
     , deepseq
     , free
+    , http-client
+    , http-conduit
+    , http-types
     , random
     , stm
     , strict
+    , text
     , transformers
   default-language: Haskell2010
 
-executable fp2025-one
+executable fp2025-client
   main-is: Main.hs
   other-modules:
       Paths_fp2025
   autogen-modules:
       Paths_fp2025
   hs-source-dirs:
-      app1
+      app-client
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -rtsopts
   build-depends:
       base >=4.7 && <5
+    , bytestring
     , containers
     , fp2025
-    , repline
-  default-language: Haskell2010
-
-executable fp2025-three
-  main-is: Main.hs
-  other-modules:
-      Paths_fp2025
-  autogen-modules:
-      Paths_fp2025
-  hs-source-dirs:
-      app3
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -rtsopts
-  build-depends:
-      async
-    , base >=4.7 && <5
-    , containers
-    , fp2025
-    , repline
+    , http-client
+    , http-conduit
+    , http-types
     , stm
+    , text
+    , transformers
   default-language: Haskell2010
 
-executable fp2025-two
+executable fp2025-server
   main-is: Main.hs
   other-modules:
       Paths_fp2025
   autogen-modules:
       Paths_fp2025
   hs-source-dirs:
-      app2
+      app-server
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -rtsopts
   build-depends:
       base >=4.7 && <5
+    , bytestring
     , containers
     , fp2025
-    , repline
+    , http-types
+    , scotty
+    , stm
+    , text
+    , transformers
+    , wai
+    , wai-extra
   default-language: Haskell2010
 
-test-suite fp2024-test
+test-suite fp2025-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
@@ -118,11 +122,22 @@ test-suite fp2024-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      QuickCheck
+    , base >=4.7 && <5
+    , bytestring
     , containers
     , fp2025
+    , free
+    , http-client
+    , http-conduit
+    , http-types
+    , mtl
+    , scotty
     , tasty
     , tasty-hunit
     , tasty-quickcheck
+    , text
     , transformers
+    , wai
+    , wai-extra
   default-language: Haskell2010
